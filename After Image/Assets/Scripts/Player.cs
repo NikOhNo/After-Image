@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
         myRigidbody2D.MovePosition(myRigidbody2D.position + moveInput * moveMultiplier * Time.fixedDeltaTime);
     }
 
+    // Movement Controls
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -44,6 +45,30 @@ public class Player : MonoBehaviour
             isRunning = true;
         } else {
             isRunning = false;
+        }
+    }
+
+    // Weapon Controls
+    void OnFire(InputValue value)
+    {
+
+    }
+
+    // Recording Controls
+    void OnRecordAndReplay(InputValue value)
+    {
+
+    }
+
+    void OnRecordMenu(InputValue value)
+    {
+        if(value.Get<float>() > 0)
+        {
+            FindObjectOfType<RecordMenu>().MovePositionRight();
+        }
+        if(value.Get<float>() < 0)
+        {
+            FindObjectOfType<RecordMenu>().MovePositionLeft();
         }
     }
 }
