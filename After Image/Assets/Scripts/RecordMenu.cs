@@ -9,7 +9,7 @@ public class RecordMenu : MonoBehaviour
 
     int currentPosition = 0;
 
-    // Update is called once per frame
+
     void Update()
     {
         recordingDot.transform.position = records[currentPosition].GetComponent<Transform>().position;
@@ -29,5 +29,10 @@ public class RecordMenu : MonoBehaviour
         {
             currentPosition -= 1;
         }
+    }
+
+    public void RecordAtPosition()
+    {
+        records[currentPosition].GetComponent<Record>().HandleRecording();
     }
 }

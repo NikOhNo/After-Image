@@ -57,7 +57,10 @@ public class Player : MonoBehaviour
     // Recording Controls
     void OnRecordAndReplay(InputValue value)
     {
-
+        if (value.isPressed)
+        {
+            FindObjectOfType<RecordMenu>().RecordAtPosition();
+        }
     }
 
     void OnRecordMenu(InputValue value)
