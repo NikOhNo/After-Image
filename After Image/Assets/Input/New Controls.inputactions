@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Position",
+                    "type": "Value",
+                    "id": "f084241e-d4fb-408d-be85-51b31e31179e",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -170,6 +179,17 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7f9f056-cafa-453e-9cfe-83af838c83ca",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Mouse Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

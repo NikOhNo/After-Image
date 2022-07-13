@@ -54,9 +54,4 @@ public class Record : MonoBehaviour
         GameObject newClone = Instantiate(clone, firstRecord.position, firstRecord.rotation);
         newClone.GetComponent<Clone>().RecieveQueue(recordQueue);
     }
-
-    public void ResetRecordQueue()
-    {
-        recordQueue.Clear();
-    }
 }

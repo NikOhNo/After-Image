@@ -9,10 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float runMultiplier = 1.5f;
 
+    // Movement Variables
     Rigidbody2D myRigidbody2D;
     Vector2 moveInput;
     bool isRunning = false;
     float moveMultiplier;
+
+    // Weapon Variables
+    Vector3 mousePosition;
 
 
     void Start()
@@ -30,6 +34,11 @@ public class Player : MonoBehaviour
         }
 
         myRigidbody2D.MovePosition(myRigidbody2D.position + moveInput * moveMultiplier * Time.fixedDeltaTime);
+
+        //look at where the mouse is
+        var dir = mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     // Movement Controls
@@ -73,5 +82,10 @@ public class Player : MonoBehaviour
         {
             FindObjectOfType<RecordMenu>().MovePositionLeft();
         }
+    }
+
+    void OnMousePosition(InputValue value)
+    {
+        mousePosition = value.Get<Vector2>();
     }
 }
