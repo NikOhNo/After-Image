@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4356045588571699935}
   - component: {fileID: 4356045588571699932}
   m_Layer: 0
-  m_Name: Clone
+  m_Name: Clone Orange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 96f89fe0aaa21bb459b04d2b0d1ea0e4, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.9424863, a: 1}
+  m_Color: {r: 1, g: 0.7249701, b: 0, a: 0.7490196}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -6,7 +6,7 @@ public class Clone : MonoBehaviour
 {
     Queue<ActionReplayRecord> recordQueue;
 
-    void Update()
+    private void FixedUpdate()
     {
         ReplayActions(recordQueue);
     }

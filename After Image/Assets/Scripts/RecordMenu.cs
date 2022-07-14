@@ -5,14 +5,14 @@ using UnityEngine;
 public class RecordMenu : MonoBehaviour
 {
     [SerializeField] GameObject[] records;
-    [SerializeField] GameObject recordingDot;
+    [SerializeField] GameObject recordSelector;
 
     int currentPosition = 0;
 
 
     void Update()
     {
-        recordingDot.transform.position = records[currentPosition].GetComponent<Transform>().position;
+        recordSelector.transform.position = records[currentPosition].GetComponent<Transform>().position;
     }
 
     public void MovePositionRight()
