@@ -5,15 +5,23 @@ using UnityEngine;
 
 public class Record : MonoBehaviour
 {
+    // variables relating to clone
     [SerializeField] GameObject clone;
+    [SerializeField] GameObject recorder;
+    [SerializeField] Color color;
+    Queue<ActionReplayRecord> recordQueue = new Queue<ActionReplayRecord>();
+
+    // bools to handle which action to do
     bool recording = false;
     bool recordPlaying = false;
-    Queue<ActionReplayRecord> recordQueue = new Queue<ActionReplayRecord>();
+
+    // references to important components and objects 
     Player player;
     Animator myAnimator;
     GameObject instantiatedClone;
+    GameObject instantiatedRecorder;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -26,7 +34,8 @@ public class Record : MonoBehaviour
         {
             Debug.Log("Recording!");
             // Record all info of the player on the frame
-            recordQueue.Enqueue(new ActionReplayRecord { position = player.transform.position, rotation = player.transform.rotation });
+            recordQueue.Enqueue(new ActionReplayRecord { position = instantiatedRecorder.transform.position, 
+                rotation = instantiatedRecorder.transform.rotation });
         }
         if (instantiatedClone == null) // if there is no clone, no actions are being replayed
         {
@@ -43,7 +52,12 @@ public class Record : MonoBehaviour
             switch (recording)
             {
                 case true: // end recording
+                    // destroy recorder, reenable player
                     recording = false;
+                    Destroy(instantiatedRecorder);
+                    player.enabled = true;
+                    FindObjectOfType<RecordMenu>().UnlockMenu();
+
                     myAnimator.SetBool("Recording", recording);
                     myAnimator.SetBool("FullRecord", true);
                     break;
@@ -57,7 +71,11 @@ public class Record : MonoBehaviour
                     else // if there is no queue begin a recording
                     {
                         recording = true;
+                        FindObjectOfType<RecordMenu>().LockMenu();
                         myAnimator.SetBool("Recording", recording);
+                        // Lock player use recorder
+                        instantiatedRecorder = Instantiate(recorder, player.transform);
+                        player.enabled = false;
                     }
                     break;
             }
@@ -69,6 +87,7 @@ public class Record : MonoBehaviour
         //creates a clone, hands it the queue
         ActionReplayRecord firstRecord = recordQueue.Dequeue();
         instantiatedClone = Instantiate(clone, firstRecord.position, firstRecord.rotation);
+        instantiatedClone.GetComponentInChildren<SpriteRenderer>().color = color;
         instantiatedClone.GetComponent<Clone>().RecieveQueue(recordQueue);
 
         recordPlaying = true;

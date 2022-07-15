@@ -8,7 +8,7 @@ public class RecordMenu : MonoBehaviour
     [SerializeField] GameObject recordSelector;
 
     int currentPosition = 0;
-
+    bool lockMenu = false;
 
     void Update()
     {
@@ -17,7 +17,7 @@ public class RecordMenu : MonoBehaviour
 
     public void MovePositionRight()
     {
-        if(currentPosition + 1 < records.Length)
+        if((currentPosition + 1 < records.Length) && !lockMenu)
         {
             currentPosition += 1;
         }
@@ -25,7 +25,7 @@ public class RecordMenu : MonoBehaviour
 
     public void MovePositionLeft()
     {
-        if(currentPosition - 1 >= 0)
+        if((currentPosition - 1 >= 0) && !lockMenu)
         {
             currentPosition -= 1;
         }
@@ -34,5 +34,15 @@ public class RecordMenu : MonoBehaviour
     public void RecordAtPosition()
     {
         records[currentPosition].GetComponent<Record>().HandleRecording();
+    }
+
+    public void LockMenu()
+    {
+        lockMenu = true;
+    }
+
+    public void UnlockMenu()
+    {
+        lockMenu = false;
     }
 }

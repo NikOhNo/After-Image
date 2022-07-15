@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    // Player Stats
     [SerializeField] int health = 100;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float runMultiplier = 1.5f;
+    [SerializeField] Transform firePoint;
 
     // Movement Variables
     Rigidbody2D myRigidbody2D;
@@ -26,13 +28,20 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        MoveAndLook();
+    }
+
+    private void MoveAndLook()
+    {
+        //move
         if (isRunning)
         {
             moveMultiplier = moveSpeed * runMultiplier;
-        } else {
+        }
+        else
+        {
             moveMultiplier = moveSpeed;
         }
-
         myRigidbody2D.MovePosition(myRigidbody2D.position + moveInput * moveMultiplier * Time.fixedDeltaTime);
 
         //look at where the mouse is
@@ -60,7 +69,28 @@ public class Player : MonoBehaviour
     // Weapon Controls
     void OnFire(InputValue value)
     {
+        if (value.isPressed)
+        {
+            Debug.Log("Fire!");
+            FireGun();
+        }
+    }
 
+    private void FireGun()
+    {
+        // NEED TO GET A DIRECTION VECTOR FROM FIRE POINT TO MOUSE (plug this into transform.right everywhere here)
+        Debug.Log(transform.right);
+        LineRenderer smokeTrail = GetComponentInChildren<LineRenderer>();
+        Ray2D ray = new Ray2D(firePoint.position, transform.right);
+        RaycastHit2D hitData = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity);
+        if(hitData.collider != null)
+        {
+            Debug.Log("Hit Something!");
+
+            // ADD TEXTURE TO SMOKETRAIL
+            smokeTrail.SetPosition(0, firePoint.position);
+            smokeTrail.SetPosition(1, hitData.point);
+        }
     }
 
     // Recording Controls
