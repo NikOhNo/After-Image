@@ -78,16 +78,16 @@ public class Player : MonoBehaviour
 
     private void FireGun()
     {
-        // NEED TO GET A DIRECTION VECTOR FROM FIRE POINT TO MOUSE (plug this into transform.right everywhere here)
-        Debug.Log(transform.right);
+        var dir = mousePosition - Camera.main.WorldToScreenPoint(firePoint.position);
+        Debug.Log(dir);
         LineRenderer smokeTrail = GetComponentInChildren<LineRenderer>();
-        Ray2D ray = new Ray2D(firePoint.position, transform.right);
-        RaycastHit2D hitData = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity);
+        Ray2D ray = new Ray2D(firePoint.position, dir);
+        RaycastHit2D hitData = Physics2D.Raycast(firePoint.position, dir, Mathf.Infinity);
         if(hitData.collider != null)
         {
             Debug.Log("Hit Something!");
 
-            // ADD TEXTURE TO SMOKETRAIL
+            // ADD TEXTURE TO SMOKETRAIL AND FADE SMOKETRAIL AFTER 1 SECOND
             smokeTrail.SetPosition(0, firePoint.position);
             smokeTrail.SetPosition(1, hitData.point);
         }
